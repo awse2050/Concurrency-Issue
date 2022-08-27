@@ -1,4 +1,17 @@
 package com.example.stock.repository;
 
-public class LockRepository {
+import com.example.stock.domain.Stock;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+// TODO : 실제로는 이 방식으로 사용하면 안된다.
+public interface LockRepository extends JpaRepository<Stock, Long> {
+
+    @Query(value = "select get_lock(:key, 3000)", nativeQuery = true)
+    void getLock(@Param("key") String key);
+
+    @Query(value = "select release_lock(:key)", nativeQuery = true)
+    void releaseLock(@Param("key")String key);
+
 }
