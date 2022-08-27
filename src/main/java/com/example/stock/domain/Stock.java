@@ -1,9 +1,6 @@
 package com.example.stock.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Stock {
@@ -14,6 +11,12 @@ public class Stock {
     private Long id;
 
     private Long productId;
+
+    /*
+        Optimistic Lock 을 사용하기 위한 설정
+     */
+    @Version
+    private Long version;
 
     private Long quantity;
 
